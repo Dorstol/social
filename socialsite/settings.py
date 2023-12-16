@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-3yr)phebxlqt88)p+yyb%&!rf-s+j$-ec6dz5r5_t-lqqvqx8u
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['social.com', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
@@ -16,6 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +72,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+]
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -90,3 +98,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+SOCIAL_AUTH_GITHUB_KEY = '407319fb93717cac8a88'
+SOCIAL_AUTH_GITHUB_SECRET = '6ba82f70c4701f10eca67c607391791598429619'
+
+SOCIAL_AUTH_GITHUB_SCOPE = ['email']
