@@ -11,13 +11,17 @@ class Image(models.Model):
     title = models.CharField(max_length=128)
     slug = models.SlugField(max_length=128)
     description = models.TextField(blank=True)
-    url = models.URLField(max_length=2000)
+    url = models.URLField(max_length=2000, blank=True)
     image = models.ImageField(upload_to="images/%Y/%m/%d/")
     created = models.DateField(auto_now_add=True)
     users_like = models.ManyToManyField(User, related_name="images_liked", blank=True)
+    total_likes = models.PositiveIntegerField(default=0)
 
     class Meta:
-        indexes = (models.Index(fields=["-created"]),)
+        indexes = [
+            models.Index(fields=["-created"]),
+            models.Index(fields=["-total_likes"]),
+        ]
         ordering = ["-created"]
 
     def __str__(self):
